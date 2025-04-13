@@ -15,6 +15,7 @@ public:
 private:
     SensorPoller* sensors = nullptr;
     RFReceiver* rf = nullptr;
+    unsigned long lastSensorPollTime = 0;
     void handleReactor();
     void handleDeviceCommand(int vid, int did, const char* guid, const char* data);
     void sendAck(const char* guid, int vid, int did, const char* strData);

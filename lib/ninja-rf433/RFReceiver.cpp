@@ -10,12 +10,14 @@ void RFReceiver::poll() {
 
     if (mySwitch.available()) {
         unsigned long value = mySwitch.getReceivedValue();
+        unsigned int protocol = mySwitch.getReceivedProtocol();
+
 
         StaticJsonDocument<256> doc;
         JsonArray arr = doc.createNestedArray("DEVICE");
         JsonObject obj = arr.createNestedObject();
         obj["G"] = "0";
-        obj["V"] = 0;
+        obj["V"] = protocol;
         obj["D"] = 11;
         obj["DA"] = value;
 

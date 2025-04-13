@@ -90,6 +90,11 @@ void ProtocolHandler::sendError(int code, const char* error) {
 }
 
 void ProtocolHandler::sendObjects() {
-    //if (sensors) sensors->poll();
+    unsigned long now = millis();
+    if (sensors && (now - lastSensorPollTime >= 30000 || lastSensorPollTime == 0)) {
+        sensors->poll();
+        lastSensorPollTime = now;
+    }
     if (rf) rf->poll();
 }
+
