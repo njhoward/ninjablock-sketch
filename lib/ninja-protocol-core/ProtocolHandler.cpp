@@ -13,6 +13,10 @@ void ProtocolHandler::setRFReceiver(RFReceiver* r) {
 }
 
 void ProtocolHandler::handleJSON(const char* input) {
+    Serial.println("[ProtocolHandler] handleJSON()");
+
+
+    
     StaticJsonDocument<512> doc;
     DeserializationError error = deserializeJson(doc, input);
     if (error) return;
@@ -23,15 +27,22 @@ void ProtocolHandler::handleJSON(const char* input) {
         const char* guid = device["G"] | "0";
         int vid = device["V"] | -1;
         int did = device["D"] | -1;
-        const char* data = device["DA"] | nullptr;
+       
+        String dataStr = device["DA"].as<String>();
+        const char* data = dataStr.c_str();
 
-        if (vid >= 0 && did >= 0 && data) {
+
+        if (vid >= 0 && did >= 0) {
             handleDeviceCommand(vid, did, guid, data);
         }
     }
 }
 
 void ProtocolHandler::handleDeviceCommand(int vid, int did, const char* guid, const char* data) {
+    Serial.println("[Protocol] handleDeviceCommand()");
+
+
+
     if (vid != 0) {
         sendError(2);  // Unknown vendor
         return;
@@ -53,6 +64,7 @@ void ProtocolHandler::handleDeviceCommand(int vid, int did, const char* guid, co
             BoardLED::setEyeColor(data);
             break;
         case 1003:
+            Serial.println("[Protocol] Sending ACK...");
             sendAck("0", 0, 1003, "v0.3");
             break;
         default:

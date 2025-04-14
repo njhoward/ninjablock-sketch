@@ -21,6 +21,10 @@ void BoardLED::init() {
     digitalWrite(RED_LED_PIN, HIGH);
     digitalWrite(GREEN_LED_PIN, HIGH);
     digitalWrite(BLUE_LED_PIN, HIGH);
+
+    // Set default color to blue
+    setEyeColor("0000FF");
+    setStatusColor("0000FF");
 }
 
 void BoardLED::setEyeColor(const char* hex) {

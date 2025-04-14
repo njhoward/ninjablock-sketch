@@ -13,7 +13,12 @@ RFReceiver rf;
 
 void setup() {
     Serial.begin(9600);
+
+    // Init RF receiver early
+    rf.init();
+
     BoardLED::init();
+
     bridge.setProtocol(&protocol);
     protocol.setSensorPoller(&sensors);
     protocol.setRFReceiver(&rf);

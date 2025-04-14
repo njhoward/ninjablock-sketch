@@ -20,6 +20,8 @@ void SerialBridge::loop() {
     if (Serial.available() > 0) {
         int len = readSerial();
         if (len > 0 && protocol) {
+            Serial.print("[Bridge] Raw input: ");
+            Serial.println(serialBuffer);
             protocol->handleJSON(serialBuffer);
         }
     }

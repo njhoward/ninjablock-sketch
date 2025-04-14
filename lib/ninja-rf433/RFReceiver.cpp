@@ -1,12 +1,28 @@
+// --- RFReciever.cpp ---
 #include "RFReceiver.h"
 #include <Arduino.h>
 #include <RCSwitch.h>
 #include <ArduinoJson.h>
 
 static RCSwitch mySwitch;
+static bool receiverInitialized = false;
+
+// call early
+void RFReceiver::init() {
+    if (!receiverInitialized) {
+        mySwitch.enableReceive(0);
+        receiverInitialized = true;
+    }
+}
+
 
 void RFReceiver::poll() {
-    mySwitch.enableReceive(0); // interrupt 0 on pin 2 typically
+
+    unsigned long now = millis();
+    if ((now - lastSensorPollTime >= 30000 || lastSensorPollTime == 0)) {
+        Serial.println(F("[RFReceiver] poll running"));  // sanity check
+        lastSensorPollTime = now;
+    }
 
     if (mySwitch.available()) {
         unsigned long value = mySwitch.getReceivedValue();

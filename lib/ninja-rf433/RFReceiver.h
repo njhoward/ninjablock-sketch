@@ -39,9 +39,11 @@
 
 class RFReceiver {
 public:
+    void init();
     void poll();
     void transmit(const char* guid, const char* data) ;   
 
 private:
     int getPinFromGUID(const char* guid);
+    unsigned long lastSensorPollTime = 0;
 };
