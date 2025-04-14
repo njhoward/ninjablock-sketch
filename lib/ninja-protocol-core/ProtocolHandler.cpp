@@ -13,7 +13,7 @@ void ProtocolHandler::setRFReceiver(RFReceiver* r) {
 }
 
 void ProtocolHandler::handleJSON(const char* input) {
-    Serial.println("[ProtocolHandler] handleJSON()");
+    //Serial.println("[ProtocolHandler] handleJSON()");
 
 
     
@@ -39,7 +39,7 @@ void ProtocolHandler::handleJSON(const char* input) {
 }
 
 void ProtocolHandler::handleDeviceCommand(int vid, int did, const char* guid, const char* data) {
-    Serial.println("[Protocol] handleDeviceCommand()");
+    //Serial.println("[Protocol] handleDeviceCommand()");
 
 
 
@@ -64,7 +64,7 @@ void ProtocolHandler::handleDeviceCommand(int vid, int did, const char* guid, co
             BoardLED::setEyeColor(data);
             break;
         case 1003:
-            Serial.println("[Protocol] Sending ACK...");
+            //Serial.println("[Protocol] Sending ACK...");
             sendAck("0", 0, 1003, "v0.3");
             break;
         default:

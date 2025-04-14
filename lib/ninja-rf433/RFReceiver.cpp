@@ -18,11 +18,11 @@ void RFReceiver::init() {
 
 void RFReceiver::poll() {
 
-    unsigned long now = millis();
-    if ((now - lastSensorPollTime >= 30000 || lastSensorPollTime == 0)) {
-        Serial.println(F("[RFReceiver] poll running"));  // sanity check
-        lastSensorPollTime = now;
-    }
+    //unsigned long now = millis();
+    //if ((now - lastSensorPollTime >= 30000 || lastSensorPollTime == 0)) {
+    //    Serial.println(F("[RFReceiver] poll running"));  // sanity check
+    //    lastSensorPollTime = now;
+    //}
 
     if (mySwitch.available()) {
         unsigned long value = mySwitch.getReceivedValue();
